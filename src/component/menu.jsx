@@ -6,8 +6,9 @@ import data from '../json/menu.json'
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import Order from "./order";
-
+import MaxWidthDialog from "./order";
 import InputBase from '@mui/material/InputBase';
+
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -83,9 +84,8 @@ const Counter = () => {
        
             />
           </Search>
-            <Button variant="outlined" onClick={onclick}> 
-                + Nemeh
-            </Button>
+          <MaxWidthDialog></MaxWidthDialog>
+           
           </Box>
             </Box>
             <Divider></Divider>
@@ -122,7 +122,8 @@ const Counter = () => {
                 )}
         </Grid>
         </Box>
-        {!isTrue ? <Order></Order> : null}
+        
+        
         </Box>
       );
 }
