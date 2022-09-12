@@ -19,10 +19,12 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import Logo from '../img/logo.png'
-import { Card, CardMedia } from '@mui/material';
+import { Avatar, Card, CardMedia } from '@mui/material';
 import frame1 from '../img/Frame.png'
 import {Link, } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import SearchIcon from '@mui/icons-material/Search';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 
 
 const drawerWidth = 240;
@@ -70,7 +72,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
 }));
@@ -89,8 +90,8 @@ export default function PersistentDrawerLeft() {
 
   
   let location = useLocation()
-  let index = direction.indexOf(location.pathname.slice('/'))
-  console.log(index)
+  let index = direction.indexOf(location.pathname.slice(1))
+    
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -103,7 +104,7 @@ export default function PersistentDrawerLeft() {
     <Box sx={{ display: 'flex', }}>
       <CssBaseline />
       <AppBar position="fixed" open={open} sx={{backgroundColor:"#fff"}}>
-        <Toolbar >
+        <Toolbar sx={{display:'flex',justifyContent:'space-between'}}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -114,16 +115,22 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div" sx={{color:'#000'}}>
-            Persistent drawer
-            {}
+            {menu[index] || 'Foody'}
           </Typography>
+            <Box display='flex' sx={{textIndent:'30px',alignItems:'center'}}>
+                <SearchIcon sx={{color:'#000'}}></SearchIcon>
+                <NotificationsActiveIcon sx={{color:'#000',marginLeft:'30px'}}></NotificationsActiveIcon>
+                <Divider orientation="vertical" flexItem sx={{width:'30px',justifyContent:'center',alignItems:'center'}}></Divider>
+                <Typography sx={{color:'#000'}}>Gantulga</Typography>
+                <Avatar sx={{marginLeft:'20px'}} alt="Remy Sharp" src="https://sportshub.cbsistatic.com/i/2021/03/18/fbe99a54-7f1a-4ca2-ba2b-9a2e04bc1461/naruto-1249229.jpg" />
+            </Box>
         </Toolbar>
       </AppBar>
+
       <Drawer
         sx={{
           width: drawerWidth,
           flexShrink: 0,
-      
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
@@ -145,8 +152,6 @@ export default function PersistentDrawerLeft() {
           <IconButton onClick={handleDrawerClose} sx={{color:'#ffffff'}}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon sx={{color:'#ffffff'}}/> : <ChevronRightIcon />}
           </IconButton>
-     
-          
         </DrawerHeader>
      
         <List sx={{marginTop:'50px'}}>
@@ -158,7 +163,7 @@ export default function PersistentDrawerLeft() {
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon sx={{color:'#ffffff', marginLeft:'5px'}} /> : <MailIcon sx={{color:'#ffffff', marginLeft:'5px'}}/>}
                 </ListItemIcon>
-                <Link to={direction[index]} >
+                <Link to={direction[index]}>
                 <ListItemText primary={text} sx={{color:'#fff',textDecorationStyle:'none',}}/>
               </Link>
               </ListItemButton>
