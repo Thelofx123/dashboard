@@ -20,7 +20,11 @@ import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import { Label } from '@mui/icons-material';
 import SimpleDialogDemo from './dialog';
-
+import Ing from "./ingredients";
+import IngDialog from "./dialog2"
+import { useDtCon } from '../context/dataContext';
+import { useStrCon } from '../context/strCon';
+import { recipeList } from '../firebase';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -61,13 +65,18 @@ export default function MaxWidthDialog() {
   const [open, setOpen] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState('sm');
-
+  const [all,setAll] = React.useState([])
+  const {dt,usedt} =useDtCon()
+  const {str, setStr} = useStrCon()
   const handleClickOpen = () => {
     setOpen(true);
+    setAll([])
+
   };
 
   const handleClose = () => {
     setOpen(false);
+    setAll([])
   };
 
   const handleMaxWidthChange = (event) => {
@@ -77,9 +86,29 @@ export default function MaxWidthDialog() {
     );
   };
 
-  const handleFullWidthChange = (event) => {
-    setFullWidth(event.target.checked);
-  };
+  const onchange = (e) =>{
+    e.preventDefault();
+    setStr({...str,[e.target.name]:e.target.value })
+}
+
+const [file, setFile] = React.useState();
+
+  const save = () =>{
+    const data = {
+      name: "Ottawa",
+      country: "Canada",
+      province: "ON"
+   };
+   
+    setAll({...str,dt})
+    recipeList(data)
+    usedt([])
+  }
+  console.log(all,":all")
+function handleChange(e) {
+    console.log(e.target.files);
+    setFile(URL.createObjectURL(e.target.files[0]));
+}
 
   return (
     <React.Fragment >
@@ -95,7 +124,7 @@ export default function MaxWidthDialog() {
       >
          <Box  sx={{width:'100%',borderBottom:'1px solid black',display:'flex',alignItems:'center',justifyContent:'space-around'}}>
          <DialogActions>
-          <Button variant="contained" sx={{backgroundColor:'green'}}>Хадгалах</Button>
+          <Button variant="contained" sx={{backgroundColor:'green'}} onClick={save}>Хадгалах</Button>
         </DialogActions>
             <Typography sx={{textTransform:'uppercase',fontWeight:'bolder'}}>Хоол нэмэх</Typography>
          <DialogActions>
@@ -106,12 +135,11 @@ export default function MaxWidthDialog() {
         <Box sx={{padding:'50px'}}>
         <Stack direction="row" spacing={2}>
             <StyledBadge
-                overlap="circular"
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                variant="dot"
                 sx={{width:'50%'}}
             >
-                <Avatar sx={{ width: 200, height: 200 }} alt="Remy Sharp" src="https://sportshub.cbsistatic.com/i/2021/03/18/fbe99a54-7f1a-4ca2-ba2b-9a2e04bc1461/naruto-1249229.jpg" />
+               
+                <Avatar type="file" sx={{ width:'80%', height:'20vh' }} alt="Remy Sharp" src={file} />
+                <input type="file" onChange={handleChange} />
             </StyledBadge>
             <Box 
              component="form"
@@ -122,8 +150,8 @@ export default function MaxWidthDialog() {
              autoComplete="off"
             >
            
-            <TextField id="outlined-basic" label="Хоолны нэр" variant="outlined" />
-            <TextField id="outlined-basic" label="Дэлэгрэнгүй" variant="outlined" />
+            <TextField id="outlined-basic" name="name"  onChange={onchange} label="Хоолны нэр" variant="outlined" />
+            <TextField id="outlined-basic"  name="desc"  onChange={onchange} label="Дэлэгрэнгүй" variant="outlined" />
             <Box
             component="form"
             sx={{
@@ -132,8 +160,8 @@ export default function MaxWidthDialog() {
             }}
             noValidate
             autoComplete="off">
-            <TextField id="outlined-basic" label="Хоолны үнэ ₮" variant="outlined" />
-           <SimpleDialogDemo></SimpleDialogDemo>
+            <TextField id="outlined-basic" label="Хоолны үнэ ₮"  name="price"  onChange={onchange} variant="outlined" />
+           <SimpleDialogDemo onChange={onchange} name="type"></SimpleDialogDemo>
             </Box>
            
             </Box>
@@ -144,7 +172,10 @@ export default function MaxWidthDialog() {
         </Box>
 
      <Divider></Divider>
-       <Box sx={{width:'100%'}}></Box>
+       <Box sx={{width:'80%',margin:'auto'}}>
+              {/* <Ing></Ing> */}
+              <IngDialog ></IngDialog>
+       </Box>
       </Dialog>
     </React.Fragment>
   );

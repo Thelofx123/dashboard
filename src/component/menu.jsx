@@ -8,6 +8,7 @@ import { styled, alpha } from '@mui/material/styles';
 import Order from "./order";
 import MaxWidthDialog from "./order";
 import InputBase from '@mui/material/InputBase';
+import Ing from "./ingredients";
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -64,8 +65,6 @@ const Counter = () => {
     const onclick = () => {
         setTrue(!isTrue)
     }
-
-
     return (
         <Box  sx={{width:'100%',margin:'auto'}}>
             <Box sx={{width:'70%',height:'60px',display:'flex',flexDirection:'row',justifyContent:'space-between',margin:'auto',marginTop:'60px',alignItems:'center'}}>
