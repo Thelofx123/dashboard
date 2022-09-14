@@ -25,6 +25,9 @@ import IngDialog from "./dialog2"
 import { useDtCon } from '../context/dataContext';
 import { useStrCon } from '../context/strCon';
 import { recipeList } from '../firebase';
+import { uploadFile } from '../firebase';
+import { storage } from "../firebase";
+import { useGetDocsFromFireBase } from "../firebase";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -68,6 +71,23 @@ export default function MaxWidthDialog() {
   const [all,setAll] = React.useState([])
   const {dt,usedt} =useDtCon()
   const {str, setStr} = useStrCon()
+  
+const [imageUpload, setImageUpload] = React.useState(null);
+const [imageUrls, setImageUrls] = React.useState([]);
+
+
+
+
+// React.useEffect(() => {
+//   listAll(imagesListRef).then((response) => {
+//     response.items.forEach((item) => {
+//       getDownloadURL(item).then((url) => {
+//         setImageUrls((prev) => [...prev, url]);
+//       });
+//     });
+//   });
+// }, []);
+
   const handleClickOpen = () => {
     setOpen(true);
     setAll([])
@@ -79,12 +99,8 @@ export default function MaxWidthDialog() {
     setAll([])
   };
 
-  const handleMaxWidthChange = (event) => {
-    setMaxWidth(
-      // @ts-expect-error autofill of arbitrary value is not handled.
-      event.target.value,
-    );
-  };
+  const data = useGetDocsFromFireBase("recipe")
+  console.log(data)
 
   const onchange = (e) =>{
     e.preventDefault();
@@ -94,21 +110,14 @@ export default function MaxWidthDialog() {
 const [file, setFile] = React.useState();
 
   const save = () =>{
-    const data = {
-      name: "Ottawa",
-      country: "Canada",
-      province: "ON"
-   };
-   
-    setAll({...str,dt})
-    recipeList(data)
+    recipeList(all)
+    uploadFile(imageUpload,str.name)
     usedt([])
   }
-  console.log(all,":all")
-function handleChange(e) {
-    console.log(e.target.files);
-    setFile(URL.createObjectURL(e.target.files[0]));
-}
+
+  React.useEffect(() =>{
+    setAll({...str,dt})
+  },[])
 
   return (
     <React.Fragment >
@@ -122,24 +131,32 @@ function handleChange(e) {
         open={open}
         onClose={handleClose}
       >
-         <Box  sx={{width:'100%',borderBottom:'1px solid black',display:'flex',alignItems:'center',justifyContent:'space-around'}}>
-         <DialogActions>
-          <Button variant="contained" sx={{backgroundColor:'green'}} onClick={save}>Хадгалах</Button>
-        </DialogActions>
-            <Typography sx={{textTransform:'uppercase',fontWeight:'bolder'}}>Хоол нэмэх</Typography>
+         <Box  sx={{width:'100%',borderBottom:'1px solid grey',display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px'}}>
          <DialogActions>
           <Button onClick={handleClose}>X</Button>
+        </DialogActions>
+         
+            <Typography sx={{textTransform:'uppercase',fontWeight:'bolder'}}>Хоол нэмэх</Typography>
+            <DialogActions>
+          <Button variant="contained" sx={{backgroundColor:'green'}} onClick={save}>Хадгалах</Button>
         </DialogActions>
          </Box>
 
         <Box sx={{padding:'50px'}}>
         <Stack direction="row" spacing={2}>
             <StyledBadge
-                sx={{width:'50%'}}
+                sx={{width:'50%',display:'block'}}
             >
                
-                <Avatar type="file" sx={{ width:'80%', height:'20vh' }} alt="Remy Sharp" src={file} />
-                <input type="file" onChange={handleChange} />
+                <Avatar type="file" sx={{ width:'80%', height:'16vh' }} alt="Remy Sharp" src={file} />
+                <input
+        type="file"
+        onChange={(event) => {
+          setImageUpload(event.target.files[0]);
+        }}
+        style={{marginTop:'50px'}}
+      />
+     
             </StyledBadge>
             <Box 
              component="form"
@@ -151,7 +168,7 @@ function handleChange(e) {
             >
            
             <TextField id="outlined-basic" name="name"  onChange={onchange} label="Хоолны нэр" variant="outlined" />
-            <TextField id="outlined-basic"  name="desc"  onChange={onchange} label="Дэлэгрэнгүй" variant="outlined" />
+            <TextField id="outlined-basic"  name="desc"  onChange={onchange} label="Дэлгэрэнгүй" variant="outlined" />
             <Box
             component="form"
             sx={{

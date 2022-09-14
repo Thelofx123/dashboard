@@ -86,7 +86,7 @@ export default function PersistentDrawerLeft() {
 
 
     const menu =['Захиалга', 'График', 'Тохиргоо', 'Меню']
-    const direction = ['soon','test','test1','test2']
+    const direction = ['order','test','test1','soon']
 
   
   let location = useLocation()

@@ -1,6 +1,16 @@
 import {initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore,setDoc ,doc,getDoc, collection} from "firebase/firestore";
+import { getFirestore,setDoc ,doc,getDoc, collection, addDoc, getDocs} from "firebase/firestore";
+import { getStorage } from 'firebase/storage';
+import { useContext, useEffect, useMemo, useState } from 'react';
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  listAll,
+  list,
+} from "firebase/storage";
+import { useStoreCon } from './context/storeContext';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCmGuNulRFVi_vvV3mh2EEObtzoYHFJlkM",
@@ -16,7 +26,46 @@ const firebaseConfig = {
 
   export const recipeList = (data) =>{
     const recipeRef = collection(db, "recipe");
-    setDoc(recipeRef,data)
-    
-
+    setDoc(doc(db,`recipe/${data.name}`),data,{merge:true})
   }
+
+  export const storage = getStorage(app);
+
+  export const useGetDocsFromFireBase=(collectionName)=>{
+
+    let [data,setData]=useState([]);
+    // let [istrue, setTrue] = useStoreCon([])
+    const getData=async()=>{
+        setData(data=[])
+    try {
+        const datas=await getDocs(collection(db,collectionName));
+
+        datas.forEach(e=>{
+            setData(prevVal=>{
+                let prevValACopy=prevVal;
+                prevValACopy = [...prevValACopy, e.data()];
+                return(
+                    prevVal=prevValACopy
+                )
+            })
+            
+        })
+    } catch (error) {}
+    }
+
+     useEffect(()=>{
+       getData();
+     },[])
+    return [data]
+ }
+
+export const uploadFile = (data,path) => {
+  if (data == null) return;
+
+  const imageRef = ref(storage, `images/${data.name}`);
+  uploadBytes(imageRef, data).then((snapshot)=>{
+    getDownloadURL(snapshot.ref).then(url=>
+      setDoc(doc(db,`recipe/${path}`),{url},{merge:true})
+    
+  )})
+};

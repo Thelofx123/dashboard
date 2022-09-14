@@ -1,14 +1,17 @@
 import { Margin, SatelliteAlt } from "@mui/icons-material";
 import { Button, Card, CardActions, CardContent, CardMedia, Container, Divider, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { useReducer, useEffect, useState } from "react";
-import data from '../json/menu.json'
+import { useReducer, useEffect, useState, useMemo } from "react";
+import data1 from '../json/menu.json'
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import Order from "./order";
 import MaxWidthDialog from "./order";
 import InputBase from '@mui/material/InputBase';
 import Ing from "./ingredients";
+import { useGetDocsFromFireBase } from "../firebase";
+
+
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -44,8 +47,7 @@ const Search = styled('div')(({ theme }) => ({
     },
   }));
   
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+  const SearchIconWrapper = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 2),
     height: '100%',
     position: 'absolute',
@@ -55,22 +57,20 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
     justifyContent: 'center',
   }));
 
-
-
-
-
 const Counter = () => {
 
     const [isTrue,setTrue] = useState(false)
     const onclick = () => {
         setTrue(!isTrue)
     }
+    const data = useGetDocsFromFireBase("recipe")
     return (
         <Box  sx={{width:'100%',margin:'auto'}}>
             <Box sx={{width:'70%',height:'60px',display:'flex',flexDirection:'row',justifyContent:'space-between',margin:'auto',marginTop:'60px',alignItems:'center'}}>
+
                 <Box sx={{display:'flex'}}>
                 <Typography>Хоолны сан *  </Typography>
-                <Typography>{data.length}</Typography>
+                <Typography>{data[0].length}</Typography>
                 </Box>
                 <Box sx={{display:'flex',width:'20%',justifyContent:'space-around'}}>
                 <Search sx={{border:'1px solid black'}}>
@@ -84,37 +84,32 @@ const Counter = () => {
             />
           </Search>
           <MaxWidthDialog></MaxWidthDialog>
-           
           </Box>
             </Box>
             <Divider></Divider>
             <Box  sx={{width:'80%',margin:'auto',marginTop:'30px' ,display:'flex',}} > 
 
             <Grid container spacing={8} >
-                {data.map((e,i) => 
-                 <Grid item xs={10} md={6} xl={3}  lg={3} sx={{display:'flex',alignItems:'center',justifyContent:'center',margin:'auto'}}>
-                 
-           
+                {data[0].map((e,i) => 
+                 <Grid key={i} item xs={10} md={6} xl={3}  lg={3} sx={{display:'flex',alignItems:'center',justifyContent:'center',margin:'auto'}}>
                     <Card sx={{ width: 350,height:'300px'}}>
           <CardMedia
             component="img"
             alt="green iguana"
             width='148'
             height='148'
-            image={e.img}
-
+            image={e.url}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {e.name}
             </Typography>
-           
           </CardContent>
           <CardActions sx={{display:'flex',justifyContent:'space-between'}}>
           <Typography gutterBottom variant="h5" component="div">
               {e.price}
             </Typography>
-            <Button sx={{borderRadius:'40px'}} variant="outlined" size='small'>Change</Button>
+            <Button sx={{borderRadius:'40px'}} variant="outlined" size='small'>-</Button>
           </CardActions>
         </Card>
         </Grid>

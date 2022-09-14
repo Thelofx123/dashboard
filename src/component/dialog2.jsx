@@ -17,6 +17,7 @@ import data from "../json/ing.json"
 import { Input } from '@mui/material';
 import { useDtCon } from '../context/dataContext';
 
+
 function SimpleDialog(props) {
   const { onClose, selectedValue, open } = props;
 
@@ -37,8 +38,6 @@ function SimpleDialog(props) {
             <ListItemText primary={email.name} sx={{marginTop:'20px'}}/>
           </ListItem>
         ))}
-
-        
       </List>
     </Dialog>
   );
@@ -74,6 +73,9 @@ export default function IngDialog() {
     e.preventDefault();
     usedt({...dt,[e.target.name]: parseInt(e.target.value)})
 }
+
+
+
 console.log(dt)
   return (
     <div >
@@ -91,10 +93,9 @@ console.log(dt)
          {selectedValue.map((e,i)=> <Box>
             <Typography>{e}</Typography>
             <Box key={i}>
-            <Input onChange={onchange} name={e}></Input>
+            <Input name={e}></Input>
             <Button onClick={() => deleteTodo(i)}>-</Button>
             </Box>
-           
          </Box>)}
         </Typography>
         
