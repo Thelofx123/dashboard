@@ -13,21 +13,22 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Switch from '@mui/material/Switch';
-import { Divider, FormLabel, TextField, Typography } from '@mui/material';
+import { Divider, FormLabel, IconButton, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
-import { Label } from '@mui/icons-material';
+import { Label, PhotoCamera } from '@mui/icons-material';
 import SimpleDialogDemo from './dialog';
 import Ing from "./ingredients";
-import IngDialog from "./dialog2"
+import {IngDialog} from "./dialog2"
 import { useDtCon } from '../context/dataContext';
 import { useStrCon } from '../context/strCon';
 import { recipeList } from '../firebase';
 import { uploadFile } from '../firebase';
 import { storage } from "../firebase";
 import { useGetDocsFromFireBase } from "../firebase";
+import { useState } from 'react';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -76,18 +77,6 @@ const [imageUpload, setImageUpload] = React.useState(null);
 const [imageUrls, setImageUrls] = React.useState([]);
 
 
-
-
-// React.useEffect(() => {
-//   listAll(imagesListRef).then((response) => {
-//     response.items.forEach((item) => {
-//       getDownloadURL(item).then((url) => {
-//         setImageUrls((prev) => [...prev, url]);
-//       });
-//     });
-//   });
-// }, []);
-
   const handleClickOpen = () => {
     setOpen(true);
     setAll([])
@@ -104,22 +93,20 @@ const [imageUrls, setImageUrls] = React.useState([]);
     setStr({...str,[e.target.name]:e.target.value })
 }
 
-const [file, setFile] = React.useState();
-
   const save = () =>{
+    setAll({...str,dt})
     recipeList(all)
     uploadFile(imageUpload,str.name)
     usedt([])
   }
 
-  React.useEffect(() =>{
-    setAll({...str,dt})
-  },[])
+  const [file,setFile] =useState()
+
 
   return (
-    <React.Fragment >
-      <Button variant="outlined" onClick={handleClickOpen}>
-        +
+    <React.Fragment  >
+      <Button variant="outlined" onClick={handleClickOpen} >
+        Хоол нэмэх
       </Button>
       <Dialog
       sx={{width:'100%'}}
@@ -128,31 +115,32 @@ const [file, setFile] = React.useState();
         open={open}
         onClose={handleClose}
       >
-         <Box  sx={{width:'100%',borderBottom:'1px solid grey',display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px'}}>
+         <Box  sx={{width:'100%',display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px'}}>
          <DialogActions>
-          <Button onClick={handleClose}>X</Button>
+          <Button onClick={handleClose}>❌</Button>
         </DialogActions>
          
             <Typography sx={{textTransform:'uppercase',fontWeight:'bolder'}}>Хоол нэмэх</Typography>
             <DialogActions>
-          <Button variant="contained" sx={{backgroundColor:'green'}} onClick={save}>Хадгалах</Button>
+          <Button variant="contained" sx={{backgroundColor:'#9f9f9f'}} onClick={save}>Хадгалах</Button>
         </DialogActions>
          </Box>
-
+        <Divider></Divider>
         <Box sx={{padding:'50px'}}>
         <Stack direction="row" spacing={2}>
             <StyledBadge
                 sx={{width:'50%',display:'block'}}
             >
                
-                <Avatar type="file" sx={{ width:'80%', height:'16vh' }} alt="Remy Sharp" src={file} />
-                <input
-        type="file"
-        onChange={(event) => {
+                <Avatar type="file" sx={{ width:'80%', height:'25vh' }} alt="Remy Sharp" src={file} />
+                <IconButton color="primary" aria-label="upload picture" component="label" onChange={(event) => {
           setImageUpload(event.target.files[0]);
-        }}
-        style={{marginTop:'50px'}}
-      />
+           setFile(URL.createObjectURL(event.target.files[0]))
+        }}>
+                  <input hidden accept="image/*" type="file" />
+                  <PhotoCamera />
+      </IconButton>
+               
             </StyledBadge>
             <Box 
              component="form"

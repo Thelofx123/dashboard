@@ -43,15 +43,11 @@ export const db = getFirestore(app);
 
     try {
         const datas= await getDocs(collection(db,collectionName));
-        console.log(datas, "aaaaa")
         datas.forEach(e=>{
           arr.push(e.data())
-          // console.log(e)
-            // setData(prev=> [...prev, e.data()]
         })
         setData(arr)
-        console.log(arr, "arrrr")
-        console.log(data)
+
     } catch (error) {}
     }
      useEffect(()=>{

@@ -49,7 +49,7 @@ SimpleDialog.propTypes = {
   selectedValue: PropTypes.string.isRequired,
 };
 
-export default function IngDialog() {
+export  const IngDialog = () => {
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState([]);
   const {dt, usedt} =useDtCon()
@@ -62,10 +62,6 @@ export default function IngDialog() {
     setOpen(false);
   };
  
-  const remove = value => (event) =>{
-
-    usedt.pop(value)
-  }
   const deleteTodo = (index) => {
     setSelectedValue((todos) => todos.filter((_, i) => i !== index));
   };
@@ -76,7 +72,6 @@ export default function IngDialog() {
 
 
 
-console.log(dt)
   return (
     <div >
         <Box sx={{display:'flex',width:'100%',justifyContent:'space-between',alignItems:'center',padding:'40px'}}>
@@ -90,8 +85,8 @@ console.log(dt)
          {selectedValue.map((e,i)=> <Box>
             <Typography>{e}</Typography>
             <Box key={i}>
-            <Input name={e}></Input>
-            <Button onClick={() => deleteTodo(i)}>-</Button>
+            <Input name={e} onChange={onchange}></Input>
+            <Button onClick={() => deleteTodo(i)} sx={{color:'red'}}>Delete</Button>
             </Box>
          </Box>)}
         </Typography>

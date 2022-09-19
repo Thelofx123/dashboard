@@ -1,17 +1,11 @@
-import { Margin, SatelliteAlt } from "@mui/icons-material";
 import { Button, Card, CardActions, CardContent, CardMedia, Container, Divider, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useReducer, useEffect, useState, useMemo } from "react";
-import data1 from '../json/menu.json'
-import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
-import Order from "./order";
 import MaxWidthDialog from "./order";
 import InputBase from '@mui/material/InputBase';
-import Ing from "./ingredients";
 import { useGetDocsFromFireBase } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
+
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -60,28 +54,8 @@ const Search = styled('div')(({ theme }) => ({
 
 const Counter = () => {
 
-    const [isTrue,setTrue] = useState(false)
-    const onclick = () => {
-        setTrue(!isTrue)
-    }
-    // const data = useGetDocsFromFireBase("recipe")
-    let [data,setData]=useState([]);
-    const arr =[]
-    const getData=async()=>{
-      setData(data=[])
-      try {
-          const datas= await getDocs(collection(db,"recipe"));
-          datas.forEach(e=>{
-            // arr.push(e.data())
-            // console.log(e)
-              setData(prev=> [...prev, e.data()])
-          })
-      } catch (error) {}
-      }
-       useEffect(()=>{
-         getData();
-       },[])
-
+    const data = useGetDocsFromFireBase("recipe")
+    
 
     return (
         <Box  sx={{width:'100%',margin:'auto'}}>
@@ -89,10 +63,10 @@ const Counter = () => {
 
                 <Box sx={{display:'flex'}}>
                 <Typography>Хоолны сан *  </Typography>
-                <Typography>{data.length}</Typography>
+                <Typography>{data[0].length}</Typography>
                 </Box>
-                <Box sx={{display:'flex',width:'20%',justifyContent:'space-around'}}>
-                <Search sx={{border:'1px solid black'}}>
+                <Box sx={{display:'flex',justifyContent:'space-between'}}> 
+                {/* <Search sx={{border:'1px solid black'}}>
           
             <SearchIconWrapper>
             </SearchIconWrapper>
@@ -101,7 +75,7 @@ const Counter = () => {
               inputProps={{ 'aria-label': 'search' }}
        
             />
-          </Search>
+          </Search> */}
           <MaxWidthDialog></MaxWidthDialog>
           </Box>
 
@@ -110,7 +84,7 @@ const Counter = () => {
             <Box  sx={{width:'80%',margin:'auto',marginTop:'30px' ,display:'flex',}} > 
 
             <Grid container spacing={8} >
-                {data.map((e,i) => 
+                {data[0].map((e,i) => 
                  <Grid key={i} item xs={10} md={6} xl={3}  lg={3} sx={{display:'flex',alignItems:'center',justifyContent:'center',margin:'auto'}}>
                     <Card sx={{ width: 350,height:'300px'}}>
           <CardMedia

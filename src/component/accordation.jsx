@@ -9,20 +9,24 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { orderList } from "../firebase";
-const Accord = ({data}) => {
+import { useEffect } from "react";
+import { useState } from "react";
+const Accord = ({data,type}) => {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [selectedIndex, setSelectedIndex] = React.useState(0);
-    const [db, setDb] = React.useState('')
+    const [db, setDb] = React.useState([])
+    const [isTrue,setIsTrue] = useState(false)
+
     const open = Boolean(anchorEl);
     const handleClickListItem = (event) => {
       setAnchorEl(event.currentTarget);
    
     };
   
+
     const handleMenuItemClick = (event, index) => {
       setSelectedIndex(index);
-
       setAnchorEl(null);
     };
 
@@ -35,9 +39,14 @@ const Accord = ({data}) => {
     'Хүргэсэн',
     'Алдаатай',
   ];
+
+
   const onclick = () =>{
+    setIsTrue(!isTrue)
     orderList(options[selectedIndex],data.code)
   }
+
+
 
     return (
 
@@ -81,9 +90,9 @@ const Accord = ({data}) => {
           onClick={handleClickListItem}
         >
           <ListItemText
-
-            secondary={options[selectedIndex]}
-          />
+          
+            // secondary={options[selectedIndex]}
+          >{options[selectedIndex]}</ListItemText>
         </ListItem>
       </List>
       <Menu
