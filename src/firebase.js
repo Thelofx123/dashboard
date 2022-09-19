@@ -22,37 +22,38 @@ const firebaseConfig = {
     measurementId: "G-PQXD1K1Z7R"
   };
   const app = initializeApp(firebaseConfig)
- const db = getFirestore(app);
+export const db = getFirestore(app);
 
   export const recipeList = (data) =>{
     const recipeRef = collection(db, "recipe");
     setDoc(doc(db,`recipe/${data.name}`),data,{merge:true})
   }
 
+  export const orderList = (data,path) =>{
+    const recipeRef = collection(db, "order");
+    setDoc(doc(db,`order/${path}`),{type:data},{merge:true})
+  }
+
   export const storage = getStorage(app);
 
   export const useGetDocsFromFireBase=(collectionName)=>{
-
     let [data,setData]=useState([]);
-    // let [istrue, setTrue] = useStoreCon([])
+    const arr =[]
     const getData=async()=>{
-        setData(data=[])
-    try {
-        const datas=await getDocs(collection(db,collectionName));
 
+    try {
+        const datas= await getDocs(collection(db,collectionName));
+        console.log(datas, "aaaaa")
         datas.forEach(e=>{
-            setData(prevVal=>{
-                let prevValACopy=prevVal;
-                prevValACopy = [...prevValACopy, e.data()];
-                return(
-                    prevVal=prevValACopy
-                )
-            })
-            
+          arr.push(e.data())
+          // console.log(e)
+            // setData(prev=> [...prev, e.data()]
         })
+        setData(arr)
+        console.log(arr, "arrrr")
+        console.log(data)
     } catch (error) {}
     }
-
      useEffect(()=>{
        getData();
      },[])
@@ -61,11 +62,9 @@ const firebaseConfig = {
 
 export const uploadFile = (data,path) => {
   if (data == null) return;
-
   const imageRef = ref(storage, `images/${data.name}`);
   uploadBytes(imageRef, data).then((snapshot)=>{
     getDownloadURL(snapshot.ref).then(url=>
       setDoc(doc(db,`recipe/${path}`),{url},{merge:true})
-    
   )})
 };

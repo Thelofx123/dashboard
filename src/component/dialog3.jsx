@@ -99,6 +99,8 @@ const [imageUrls, setImageUrls] = React.useState([]);
     setAll([])
   };
 
+
+
   const onchange = (e) =>{
     e.preventDefault();
     setStr({...str,[e.target.name]:e.target.value })
@@ -141,19 +143,7 @@ const [file, setFile] = React.useState();
 
         <Box sx={{padding:'50px'}}>
         <Stack direction="row" spacing={2}>
-            <StyledBadge
-                sx={{width:'50%',display:'block'}}
-            >
-               
-                <Avatar type="file" sx={{ width:'80%', height:'16vh' }} alt="Remy Sharp" src={file} />
-                <input
-        type="file"
-        onChange={(event) => {
-          setImageUpload(event.target.files[0]);
-        }}
-        style={{marginTop:'50px'}}
-      />
-            </StyledBadge>
+          
             <Box 
              component="form"
              sx={{
@@ -180,10 +170,7 @@ const [file, setFile] = React.useState();
         </Box>
 
      <Divider></Divider>
-       <Box sx={{width:'80%',margin:'auto'}}>
-              {/* <Ing></Ing> */}
-              <IngDialog ></IngDialog>
-       </Box>
+    
       </Dialog>
     </React.Fragment>
   );

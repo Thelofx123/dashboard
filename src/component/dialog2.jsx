@@ -84,9 +84,6 @@ console.log(dt)
       <Button variant="outlined" onClick={handleClickOpen}>
         Төрөл 
       </Button>
-
-
-       
         </Box>
         <Box sx={{width:'80%',margin:'auto'}}>
         <Typography variant="subtitle1" component="div">
@@ -98,10 +95,7 @@ console.log(dt)
             </Box>
          </Box>)}
         </Typography>
-        
         </Box>
-        
-     
       <SimpleDialog
         selectedValue={selectedValue}
         open={open}

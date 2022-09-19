@@ -10,7 +10,8 @@ import MaxWidthDialog from "./order";
 import InputBase from '@mui/material/InputBase';
 import Ing from "./ingredients";
 import { useGetDocsFromFireBase } from "../firebase";
-
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -63,14 +64,32 @@ const Counter = () => {
     const onclick = () => {
         setTrue(!isTrue)
     }
-    const data = useGetDocsFromFireBase("recipe")
+    // const data = useGetDocsFromFireBase("recipe")
+    let [data,setData]=useState([]);
+    const arr =[]
+    const getData=async()=>{
+      setData(data=[])
+      try {
+          const datas= await getDocs(collection(db,"recipe"));
+          datas.forEach(e=>{
+            // arr.push(e.data())
+            // console.log(e)
+              setData(prev=> [...prev, e.data()])
+          })
+      } catch (error) {}
+      }
+       useEffect(()=>{
+         getData();
+       },[])
+
+
     return (
         <Box  sx={{width:'100%',margin:'auto'}}>
             <Box sx={{width:'70%',height:'60px',display:'flex',flexDirection:'row',justifyContent:'space-between',margin:'auto',marginTop:'60px',alignItems:'center'}}>
 
                 <Box sx={{display:'flex'}}>
                 <Typography>Хоолны сан *  </Typography>
-                <Typography>{data[0].length}</Typography>
+                <Typography>{data.length}</Typography>
                 </Box>
                 <Box sx={{display:'flex',width:'20%',justifyContent:'space-around'}}>
                 <Search sx={{border:'1px solid black'}}>
@@ -85,12 +104,13 @@ const Counter = () => {
           </Search>
           <MaxWidthDialog></MaxWidthDialog>
           </Box>
+
             </Box>
             <Divider></Divider>
             <Box  sx={{width:'80%',margin:'auto',marginTop:'30px' ,display:'flex',}} > 
 
             <Grid container spacing={8} >
-                {data[0].map((e,i) => 
+                {data.map((e,i) => 
                  <Grid key={i} item xs={10} md={6} xl={3}  lg={3} sx={{display:'flex',alignItems:'center',justifyContent:'center',margin:'auto'}}>
                     <Card sx={{ width: 350,height:'300px'}}>
           <CardMedia
