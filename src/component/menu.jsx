@@ -54,16 +54,17 @@ const Search = styled('div')(({ theme }) => ({
 
 const Counter = () => {
 
-    const data = useGetDocsFromFireBase("recipe")
-    
 
+
+    const  {data,refresh, orderList } = useGetDocsFromFireBase("recipe")
+    console.log(data)
     return (
         <Box  sx={{width:'100%',margin:'auto'}}>
             <Box sx={{width:'70%',height:'60px',display:'flex',flexDirection:'row',justifyContent:'space-between',margin:'auto',marginTop:'60px',alignItems:'center'}}>
 
                 <Box sx={{display:'flex'}}>
                 <Typography>Хоолны сан *  </Typography>
-                <Typography>{data[0].length}</Typography>
+                <Typography>{data.length}</Typography>
                 </Box>
                 <Box sx={{display:'flex',justifyContent:'space-between'}}> 
                 {/* <Search sx={{border:'1px solid black'}}>
@@ -84,7 +85,7 @@ const Counter = () => {
             <Box  sx={{width:'80%',margin:'auto',marginTop:'30px' ,display:'flex',}} > 
 
             <Grid container spacing={8} >
-                {data[0].map((e,i) => 
+                {data.map((e,i) => 
                  <Grid key={i} item xs={10} md={6} xl={3}  lg={3} sx={{display:'flex',alignItems:'center',justifyContent:'center',margin:'auto'}}>
                     <Card sx={{ width: 350,height:'300px'}}>
           <CardMedia

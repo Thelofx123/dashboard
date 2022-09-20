@@ -5,7 +5,7 @@ const storeCon = createContext()
 
 export const StoreProvider = ({children}) => {
    
-  const [data, setData] =useState([])
+  const [data, setData] =useState(false)
 
     return (
         <storeCon.Provider value={{data, setData}}>

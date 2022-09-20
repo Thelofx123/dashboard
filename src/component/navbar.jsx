@@ -19,28 +19,32 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import Logo from '../img/logo.png'
-import { Avatar, Card, CardMedia } from '@mui/material';
+import { Avatar, Button, Card, CardMedia } from '@mui/material';
 import frame1 from '../img/Frame.png'
-import {Link, } from "react-router-dom";
+import {Link} from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
-
-
+import { useFireCon } from '../context/fireCon';
+import {logOutFromFirebase} from '../firebase.js'
+import { useNavigate } from 'react-router-dom';
 const drawerWidth = 240;
 
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     flexGrow: 1,
+    textDecoration:'none',
     padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
+      textDecoration:'none',
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: `-${drawerWidth}px`,  
     ...(open && {
       transition: theme.transitions.create('margin', {
+        textDecoration:'none',
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
@@ -58,10 +62,12 @@ const AppBar = styled(MuiAppBar, {
   }),
   ...(open && {
     width: `calc(100% - ${drawerWidth}px)`,
+    textDecoration:'none',
     marginLeft: `${drawerWidth}px`,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
+      textDecoration:'none'
     }),
   }),
 }));
@@ -74,6 +80,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 1),
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
+  textDecoration:'none'
 }));
 
 
@@ -82,8 +89,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function PersistentDrawerLeft() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-
+  const [open, setOpen] = React.useState();
+  const {docData, setDocData} = useFireCon()
 
     const menu =['Захиалга', 'График', 'Тохиргоо', 'Меню']
     const direction = ['order','test','test1','soon']
@@ -95,14 +102,28 @@ export default function PersistentDrawerLeft() {
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-
+  const navigate = useNavigate();
   const handleDrawerClose = () => {
     setOpen(false);
   };
 
+  const Login = () =>{
+
+  }
+
+  const logOut =  () => {
+    logOutFromFirebase().then(() => {navigate('/signin')}) 
+    setDocData(false)
+  }
+
+
   return (
-    <Box sx={{ display: 'flex', }}>
+   
+      <Box sx={{ display: 'flex', }}>
+        
       <CssBaseline />
+      {docData === true ?
+      <Box>
       <AppBar position="fixed" open={open} sx={{backgroundColor:"#fff"}}>
         <Toolbar sx={{display:'flex',justifyContent:'space-between'}}>
           <IconButton
@@ -121,6 +142,9 @@ export default function PersistentDrawerLeft() {
                 <SearchIcon sx={{color:'#000'}}></SearchIcon>
                 <NotificationsActiveIcon sx={{color:'#000',marginLeft:'30px'}}></NotificationsActiveIcon>
                 <Divider orientation="vertical" flexItem sx={{width:'30px',justifyContent:'center',alignItems:'center'}}></Divider>
+                 
+               
+             
                 <Typography sx={{color:'#000'}}>Gantulga</Typography>
                 <Avatar sx={{marginLeft:'20px'}} alt="Remy Sharp" src="https://sportshub.cbsistatic.com/i/2021/03/18/fbe99a54-7f1a-4ca2-ba2b-9a2e04bc1461/naruto-1249229.jpg" />
             </Box>
@@ -131,18 +155,20 @@ export default function PersistentDrawerLeft() {
         sx={{
           width: drawerWidth,
           flexShrink: 0,
+          textDecoration:'none',
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
             backgroundColor:'#000723',
-            color:'#ffffff'
+            color:'#ffffff',
+            textDecoration:'none'
           },
         }}
         variant="persistent"
         anchor="left"
         open={open}
       >
-        <DrawerHeader sx={{marginTop:'36px',display:'flex',flexDirection:'row'}}>
+        <DrawerHeader sx={{marginTop:'36px',display:'flex',flexDirection:'row',textDecoration:'none'}}>
         <Card sx={{ maxWidth: '300px',backgroundColor:'#000723',alignItems:'center',justifyContent:'center' }}>
           <CardMedia
         component="img"
@@ -150,21 +176,21 @@ export default function PersistentDrawerLeft() {
       />
           </Card>
           <IconButton onClick={handleDrawerClose} sx={{color:'#ffffff'}}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon sx={{color:'#ffffff'}}/> : <ChevronRightIcon />}
+            {theme.direction === 'ltr' ? <ChevronLeftIcon sx={{color:'#ffffff',textDecoration:'none'}}/> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
      
-        <List sx={{marginTop:'50px'}}>
+        <List sx={{marginTop:'50px',textDecoration:'none'}}>
           {menu.map((text, index) => (
            
-            <ListItem key={text}  disablePadding >
+            <ListItem key={text}  disablePadding sx={{textDecoration:'none'}}>
                  
               <ListItemButton>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon sx={{color:'#ffffff', marginLeft:'5px'}} /> : <MailIcon sx={{color:'#ffffff', marginLeft:'5px'}}/>}
+                  {index % 2 === 0 ? <InboxIcon sx={{color:'#ffffff', marginLeft:'5px',textDecoration:'none'}} /> : <MailIcon sx={{color:'#ffffff', marginLeft:'5px'}}/>}
                 </ListItemIcon>
-                <Link to={direction[index]}>
-                <ListItemText primary={text} sx={{color:'#fff',textDecorationStyle:'none',}}/>
+                <Link to={direction[index]} sx={{textDecoration:'none'}}>
+                <ListItemText primary={text} sx={{color:'#fff',textDecoration:'none'}}/>
               </Link>
               </ListItemButton>
             </ListItem>
@@ -172,22 +198,23 @@ export default function PersistentDrawerLeft() {
           ))}
         </List>
       
-        <List sx={{position:'absolute',bottom:'200px'}} >
+        <List sx={{position:'absolute',bottom:'200px',textDecoration:'none'}} >
           {['Logout'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon sx={{color:'#ffffff', marginLeft:'5px'}} /> : <MailIcon sx={{color:'#ffffff', marginLeft:'5px'}}/>}
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={text} sx={{textDecoration:'none'}} onClick={logOut}/>
               </ListItemButton>
             </ListItem>
           ))}
         </List>
      
      
-      </Drawer>
-      
+      </Drawer></Box>
+          : null}
     </Box>
-  );
+
+  );  
 }

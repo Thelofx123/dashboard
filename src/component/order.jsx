@@ -4,30 +4,18 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import Switch from '@mui/material/Switch';
-import { Divider, FormLabel, IconButton, TextField, Typography } from '@mui/material';
+import { Divider,  IconButton, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
-import { Label, PhotoCamera } from '@mui/icons-material';
+import {  PhotoCamera } from '@mui/icons-material';
 import SimpleDialogDemo from './dialog';
-import Ing from "./ingredients";
 import {IngDialog} from "./dialog2"
 import { useDtCon } from '../context/dataContext';
 import { useStrCon } from '../context/strCon';
 import { recipeList } from '../firebase';
 import { uploadFile } from '../firebase';
-import { storage } from "../firebase";
-import { useGetDocsFromFireBase } from "../firebase";
 import { useState } from 'react';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -74,7 +62,6 @@ export default function MaxWidthDialog() {
   const {str, setStr} = useStrCon()
   
 const [imageUpload, setImageUpload] = React.useState(null);
-const [imageUrls, setImageUrls] = React.useState([]);
 
 
   const handleClickOpen = () => {

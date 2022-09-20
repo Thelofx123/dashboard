@@ -6,16 +6,14 @@ import MenuItem from '@mui/material/MenuItem';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import Accord from './accordation';
 import { useGetDocsFromFireBase } from '../firebase';
 import { Divider, Typography } from '@mui/material';
 import AccordWrap from './agree';
-import { SafetyDivider, SafetyDividerSharp } from '@mui/icons-material';
 
 
 const StickyHeadTable = () => {
-  const data = useGetDocsFromFireBase("order")
-  console.log(data[0])
+  const  {data,refresh, orderList } = useGetDocsFromFireBase("order")
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const open = Boolean(anchorEl);
@@ -53,12 +51,12 @@ const StickyHeadTable = () => {
 
   return (
     <Paper sx={{ width: '95%', margin: 'auto', marginTop: '68px', display: 'flex', alignitems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-   
+
       <div style={{ width: '100%', alignContent: 'center', textAlign: 'center', margin: 'auto', }}>
         <List
           component="nav"
           aria-label="Device settings"
-          sx={{ bgcolor: 'background.paper' ,color:'white'}}
+          sx={{ bgcolor: 'background.paper', color: 'white' }}
         >
           <ListItem
             button
@@ -66,7 +64,7 @@ const StickyHeadTable = () => {
             aria-controls="lock-menu"
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClickListItem}
-            sx={{background:'#9f9f9f',color:'white',textAlign:'center'}}
+            sx={{ background: '#9f9f9f', color: 'white', textAlign: 'center' }}
           >
             <ListItemText
               secondary={options[selectedIndex]}
@@ -78,7 +76,7 @@ const StickyHeadTable = () => {
           anchorEl={anchorEl}
           open={open}
           onClose={handleClose}
-          sx={{color:'white'}}
+          sx={{ color: 'white' }}
           MenuListProps={{
             'aria-labelledby': 'lock-button',
             role: 'listbox',
@@ -87,7 +85,7 @@ const StickyHeadTable = () => {
           {options.map((option, index) => (
             <MenuItem
               key={option}
-              sx={{width:'200px',height:'6vh'}}
+              sx={{ width: '200px', height: '6vh' }}
               selected={index === selectedIndex}
               onClick={(event) => handleMenuItemClick(event, index)}>
               {option}
@@ -97,26 +95,24 @@ const StickyHeadTable = () => {
       </div>
       <Box sx={{ display: 'flex', width: '95%', textAlign: 'center', justifyContent: 'space-around', alignItems: 'center', margin: 'auto' }}>
 
-        <Box >
-          <Typography sx={{ width: "100%", border: '1px solid grey', textTransform: 'uppercase' }}>Захиалга</Typography>
-          {data.map((e,l) => <AccordWrap data={e} date={options[selectedIndex]} key={l} type={"Захиалга"}></AccordWrap>)}
+        <Box sx={{minWidth: '300px',background:'#F5F5F7', height: '80vh',}} >
+          <Typography sx={{ minWidth: "300px", border: '1px solid grey', textTransform: 'uppercase' }}>Захиалга</Typography>
+          {data.map((e, l) => e.type === "Захиалга" && e.date === options[selectedIndex] ?<AccordWrap orderList={orderList} refresh={refresh} data={e} date={options[selectedIndex]} key={l} type={"Захиалга"}></AccordWrap> : null)}
         </Box>
         <Divider orientation='vertical' />
-        <Box>
-          <Typography sx={{ width: "100%", border: '1px solid grey' }}>Савалсан</Typography>
-          
-          {data.map((e,l) => <AccordWrap data={e} date={options[selectedIndex]} key={l} type={"Савалсан"}></AccordWrap>)}
+        <Box sx={{minWidth: '300px',background:'#F5F5F7', height: '80vh',}} >
+          <Typography sx={{ minWidth: "300px", border: '1px solid grey' }}>Савалсан</Typography>
+          {data.map((e, l) => e.type === "Савалсан" && e.date === options[selectedIndex] ?<AccordWrap orderList={orderList} refresh={refresh} data={e} date={options[selectedIndex]} key={l} type={"Савалсан"}></AccordWrap> : null)}
         </Box>
         <Divider orientation='vertical' />
-        <Box>
-          <Typography sx={{ width: "100%", border: '1px solid grey' }}>Хүргэсэн</Typography>
-          {data.map((e,l) => <AccordWrap data={e} date={options[selectedIndex]} key={l} type={"Хүргэсэн"}></AccordWrap>)}
-          
+        <Box sx={{minWidth: '300px',background:'#F5F5F7', height: '80vh',}} >
+          <Typography sx={{ minWidth: "300px", border: '1px solid grey' }}>Хүргэсэн</Typography>
+          {data.map((e, l) => e.type === "Хүргэсэн" && e.date === options[selectedIndex] ?<AccordWrap orderList={orderList} refresh={refresh} data={e} date={options[selectedIndex]} key={l} type={"Хүргэсэн"}></AccordWrap> : null)}
         </Box>
         <Divider orientation='vertical' />
-        <Box>
-          <Typography sx={{ width: "100%", border: '1px solid grey' }}>Алдаатай</Typography>
-          {data.map((e,l) => <AccordWrap data={e} date={options[selectedIndex]} key={l} type={"Алдаатай"}></AccordWrap>)}
+        <Box sx={{minWidth: '300px',background:'#F5F5F7', height: '80vh',}} >
+          <Typography sx={{ minWidth: '300px',border: '1px solid grey', }}>Алдаатай</Typography>
+          {data.map((e, l) => e.type === "Алдаатай" && e.date === options[selectedIndex] ?<AccordWrap orderList={orderList} refresh={refresh} data={e} date={options[selectedIndex]} key={l} type={"Алдаатай"}></AccordWrap> : null)}
         </Box>
 
       </Box>
