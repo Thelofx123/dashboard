@@ -10,7 +10,7 @@ const Counter = () => {
     console.log(data)
     return (
         <Box  sx={{width:'100%',margin:'auto'}}>
-            <Box sx={{width:'70%',height:'60px',display:'flex',flexDirection:'row',justifyContent:'space-between',margin:'auto',alignItems:'center'}}>
+            <Box sx={{width:'80%',height:'60px',display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center',margin:'auto'}}>
 
                 <Box sx={{display:'flex'}}>
                 <Typography>Хоолны сан *  </Typography>
@@ -22,12 +22,12 @@ const Counter = () => {
 
             </Box>
             <Divider></Divider>
-            <Box  sx={{width:'80%',margin:'auto',marginTop:'30px' ,display:'flex',}} > 
+            <Box  sx={{width:'80%',margin:'auto',padding:'10px',display:'flex',}} > 
 
             <Grid container spacing={8} >
                 {data.map((e,i) => 
-                 <Grid key={i} item xs={10} md={6} xl={3}  lg={3} sx={{display:'flex',alignItems:'center',justifyContent:'center',margin:'auto'}}>
-                    <Card sx={{ width: 350,height:'300px'}}>
+                 <Grid key={i} item xs={10} md={6} xl={3}  lg={3} sx={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+                    <Card sx={{ minWidth: 250,height:'300px'}}>
           <CardMedia
             component="img"
             alt="green iguana"

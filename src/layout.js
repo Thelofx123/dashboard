@@ -16,7 +16,7 @@ export const Layout = () => {
   return (
     <>
       <PersistentDrawerLeft open={open} handleDrawerOpen={handleDrawerOpen}  handleDrawerClose={handleDrawerClose}/>
-      <Box sx={{ pt: 10, pl: open ? 33 : 5 }}>
+      <Box sx={{ pt: 10, pl: open ? 33 : 2 }}>
         <Outlet />
       </Box>
     </>

@@ -39,7 +39,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 
-export default function MaxWidthDialog() {
+  const MaxWidthDialog = () => {
   const [open, setOpen] = React.useState(false);
   const [fullWidth] = React.useState(true);
   const [maxWidth] = React.useState('sm');
@@ -105,7 +105,7 @@ export default function MaxWidthDialog() {
               sx={{ width: '50%', display: 'block' }}
             >
 
-              <Avatar type="file" sx={{ width: '80%', height: '25vh' }} alt="Remy Sharp" src={file} />
+              <Avatar type="file" sx={{ width:'80%',height:'auto' }} alt="Remy Sharp" src={file} />
               <IconButton color="primary" aria-label="upload picture" component="label" onChange={(event) => {
                 setImageUpload(event.target.files[0]);
                 setFile(URL.createObjectURL(event.target.files[0]))
@@ -148,3 +148,4 @@ export default function MaxWidthDialog() {
     </React.Fragment>
   );
 }
+export default MaxWidthDialog

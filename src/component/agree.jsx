@@ -5,7 +5,7 @@ const AccordWrap = ( {data, type, orderList, refresh }) => {
   console.log(data)
   return (
    
-      <Accord data={data} type={type} orderList={orderList} refresh={refresh}  ></Accord> 
+      <Accord data={data} type={type} orderList={orderList} refresh={refresh} sx={{marginTop:'10px'}} ></Accord> 
  
   )
 }

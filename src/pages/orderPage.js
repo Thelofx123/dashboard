@@ -35,8 +35,9 @@ const StickyHeadTable = () => {
   return (
     <Paper 
         sx={{ 
-          width: '95%',
-          display: 'flex', 
+          width: '90%',
+          display: 'flex',
+          margin:'auto', 
           alignitems: 'center', 
           justifyContent: 'center', 
           flexDirection: 'column' 
@@ -76,7 +77,7 @@ const StickyHeadTable = () => {
           {options.map((option, index) => (
             <MenuItem
               key={option}
-              sx={{ width: '200px', height: '6vh' }}
+              sx={{ minWidth: '300px', height: '6vh' }}
               selected={index === selectedIndex}
               onClick={(event) => handleMenuItemClick(event, index)}>
               {option}
@@ -86,24 +87,24 @@ const StickyHeadTable = () => {
       </div>
       <Grid
       container spacing={8}
-      sx={{ display: 'flex', width: '95%', textAlign: 'center', alignItems: 'center', margin: 'auto', justifyContent:'space-around' }}>
+      sx={{ display: 'flex', width: '95%', textAlign: 'center', alignItems: 'center', margin: 'auto', justifyContent:'space-between' }}>
 
-        <Box sx={{minWidth: '300px',background:'#F5F5F7', height: '80vh',}} >
+        <Box sx={{minWidth: '300px',background:'#F5F5F7', height: '80vh',marginTop:'20px'}} >
           <Typography sx={{ minWidth: "300px", border: '1px solid grey', textTransform: 'uppercase' }}>Захиалга</Typography>
           {data.map((e, l) => e.type === "Захиалга" && e.date === options[selectedIndex] ?<AccordWrap orderList={orderList} refresh={refresh} data={e} date={options[selectedIndex]} key={l} type={"Захиалга"}></AccordWrap> : null)}
         </Box>
         <Divider orientation='vertical' />
-        <Box sx={{minWidth: '300px',background:'#F5F5F7', height: '80vh',}} >
+        <Box sx={{minWidth: '300px',background:'#F5F5F7', height: '80vh',marginTop:'20px'}} >
           <Typography sx={{ minWidth: "300px", border: '1px solid grey' }}>Савалсан</Typography>
           {data.map((e, l) => e.type === "Савалсан" && e.date === options[selectedIndex] ?<AccordWrap orderList={orderList} refresh={refresh} data={e} date={options[selectedIndex]} key={l} type={"Савалсан"}></AccordWrap> : null)}
         </Box>
         <Divider orientation='vertical' />
-        <Box sx={{minWidth: '300px',background:'#F5F5F7', height: '80vh',}} >
+        <Box sx={{minWidth: '300px',background:'#F5F5F7', height: '80vh',marginTop:'20px'}} >
           <Typography sx={{ minWidth: "300px", border: '1px solid grey' }}>Хүргэсэн</Typography>
           {data.map((e, l) => e.type === "Хүргэсэн" && e.date === options[selectedIndex] ?<AccordWrap orderList={orderList} refresh={refresh} data={e} date={options[selectedIndex]} key={l} type={"Хүргэсэн"}></AccordWrap> : null)}
         </Box>
         <Divider orientation='vertical' />
-        <Box sx={{minWidth: '300px',background:'#F5F5F7', height: '80vh',}} >
+        <Box sx={{minWidth: '300px',background:'#F5F5F7', height: '80vh',marginTop:'20px'}} >
           <Typography sx={{ minWidth: '300px',border: '1px solid grey', }}>Алдаатай</Typography>
           {data.map((e, l) => e.type === "Алдаатай" && e.date === options[selectedIndex] ?<AccordWrap orderList={orderList} refresh={refresh} data={e} date={options[selectedIndex]} key={l} type={"Алдаатай"}></AccordWrap> : null)}
         </Box>
