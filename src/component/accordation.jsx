@@ -1,17 +1,11 @@
-import { Accordion, AccordionSummary, Button, Divider, Typography } from "@mui/material"
 import * as React from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import AccordionDetails from '@mui/material/AccordionDetails';
 import { Box } from "@mui/system";
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
+import {ListItemText,ListItem,List,MenuItem,Menu,AccordionDetails,Accordion, AccordionSummary, Button, Divider, Typography} from '@mui/material';
 import { useState } from "react";
-import { useFireCon } from "../context/fireCon";
+
 const Accord = ({ data, type, refresh, orderList }) => {
-  const { docData, setDocData } = useFireCon()
+
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
 

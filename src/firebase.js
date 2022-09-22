@@ -1,18 +1,13 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth , createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from 'firebase/auth';
-import { getFirestore, setDoc, doc, getDoc, collection, addDoc, getDocs} from "firebase/firestore";
+import { getFirestore, setDoc, doc, collection, getDocs} from "firebase/firestore";
 import { getStorage } from 'firebase/storage';
-import { useContext, useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect,  useState } from 'react';
 import {
   ref,
   uploadBytes,
   getDownloadURL,
-  listAll,
-  list,
 } from "firebase/storage";
-import { useFireCon } from './context/fireCon';
-import { Link, Navigate } from 'react-router-dom';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCmGuNulRFVi_vvV3mh2EEObtzoYHFJlkM",
@@ -49,7 +44,6 @@ export const useGetDocsFromFireBase = (collectionName) => {
         arr.push(e.data())
       })
       setData(arr)
-      console.log(arr)
     } catch (error) { }
   }
 
@@ -69,7 +63,6 @@ export const useGetDocsFromFireBase = (collectionName) => {
 }
 
 export const useSignUp = async (data) => {
-  console.log(data)
   let user ;
       await createUserWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
@@ -97,7 +90,6 @@ export const signIn = async (data) => {
 
 export const logOutFromFirebase = async (data) => {
   signOut(auth).then(() => {
-
   }).catch((error) => {
   });
 }

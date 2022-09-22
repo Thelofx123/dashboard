@@ -31,20 +31,20 @@ const theme = createTheme();
 
 export default function SignIn() {
   const navigate = useNavigate();
-  const {docData, setDocData} = useFireCon(false)
-    const [docData1, setDocData1] = React.useState()
-   
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      console.log(e.target.value,e.target.name)
-      setDocData1({...docData,[e.target.name]:e.target.value})
-    
-    };
-  const redirect = () =>{
-    signIn(docData1).then(() => {navigate('/soon') 
-    setDocData(true)})
-  }
+  const { docData, setDocData } = useFireCon(false)
+  const [docData1, setDocData1] = React.useState()
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setDocData1({ ...docData1, [e.target.name]: e.target.value })
+
+  };
+  const redirect = () => {
+    signIn(docData1).then(() => {
+      navigate('/soon')
+      setDocData(true)
+    })
+  }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -63,10 +63,10 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box   sx={{ mt: 1 }}>
+          <Box sx={{ mt: 1 }}>
             <TextField
               margin="normal"
-       
+
               fullWidth
               id="email"
               label="Email Address"
@@ -77,13 +77,13 @@ export default function SignIn() {
             />
             <TextField
               margin="normal"
-         
+
               fullWidth
               name="password"
               label="Password"
               type="password"
               id="password"
-       
+
               onChange={handleSubmit}
             />
 
@@ -97,7 +97,6 @@ export default function SignIn() {
               Sign In
             </Button>
             <Grid container>
-              
               <Grid item>
                 <Link to='/signup' >
                   {"Don't have an account? Sign Up"}

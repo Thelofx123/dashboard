@@ -2,6 +2,9 @@ import { createTheme, ThemeProvider } from "@mui/material";
 
 const themes = createTheme({
   palette: {
+    primary: {
+      main: '#9f9f9f'
+    },
     green: "#66B60F",
     onClickNavbarItemColor:
       "linear-gradient(90deg, #66B60F -1.37%, rgba(102, 182, 15, 0) 100%)",
@@ -10,7 +13,6 @@ const themes = createTheme({
   typography: {
     fontFamily: ["Raleway", `sansSerif`].join(","),
   },
-  
 });
 export const ThemeProviderStyles = ({ children }) => {
     return (

@@ -3,17 +3,14 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useFireCon } from './context/fireCon';
 import { useSignUp } from './firebase';
-import SignIn from './signIn';
+
 import { Link } from 'react-router-dom';
 function Copyright(props) {
   return (
@@ -30,8 +27,7 @@ const theme = createTheme();
 
 export default function SignUp() {
     const [docData, setDocData] = React.useState()
-   
-  const handleSubmit = (e) => {
+    const handleSubmit = (e) => {
     e.preventDefault();
     console.log(e.target.value,e.target.name)
     setDocData({...docData,[e.target.name]:e.target.value})
@@ -62,7 +58,6 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          
           <Box   sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
@@ -87,18 +82,15 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-            
                   fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
-              
                   onChange={handleSubmit}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  
                   fullWidth
                   name="password"
                   label="Password"

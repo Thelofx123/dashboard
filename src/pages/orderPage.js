@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Box } from "@mui/system";
 import { useGetDocsFromFireBase } from '../firebase';
-import { Divider, Grid, Typography,ListItemText ,ListItem,List,MenuItem,Menu,Paper} from '@mui/material';
-import AccordWrap from './agree';
+import { Divider, Grid, Typography ,ListItemText,ListItem,List,MenuItem,Menu,Paper} from '@mui/material';
+import AccordWrap from '../component/agree';
 
 
 const StickyHeadTable = () => {
@@ -31,9 +31,6 @@ const StickyHeadTable = () => {
     'Thursday',
     'Friday'
   ];
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
 
   return (
     <Paper 
@@ -89,7 +86,7 @@ const StickyHeadTable = () => {
       </div>
       <Grid
       container spacing={8}
-      sx={{ display: 'flex', width: '95%', textAlign: 'center', justifyContent: 'center', alignItems: 'center', margin: 'auto', justifyContent:'space-around' }}>
+      sx={{ display: 'flex', width: '95%', textAlign: 'center', alignItems: 'center', margin: 'auto', justifyContent:'space-around' }}>
 
         <Box sx={{minWidth: '300px',background:'#F5F5F7', height: '80vh',}} >
           <Typography sx={{ minWidth: "300px", border: '1px solid grey', textTransform: 'uppercase' }}>Захиалга</Typography>
