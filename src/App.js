@@ -1,5 +1,5 @@
 import { Box } from '@mui/system';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import { ThemeProviderStyles } from './theme/theme';
 import SignUp from './signUp';
@@ -9,9 +9,10 @@ import { Layout } from './layout';
 import Chart from './pages/graphPage';
 import Counter from './pages/menuPage';
 import StickyHeadTable from './pages/orderPage';
-function App() {
 
-  const { docData, setDocData } = useFireCon()
+const App = () => {
+
+  const { docData } = useFireCon()
   return (
     <ThemeProviderStyles>
       <Box>

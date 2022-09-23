@@ -42,7 +42,7 @@ const SmallAvatar = styled(Avatar)(({ theme }) => ({
   border: `2px solid ${theme.palette.background.paper}`,
 }));
 
-export default function MaxWidthDialog() {
+const MaxWidthDialog = () => {
   const [open, setOpen] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState('sm');
@@ -63,14 +63,13 @@ export default function MaxWidthDialog() {
     setAll([])
   };
 
-
-
+  //Save to context
   const onchange = (e) => {
     e.preventDefault();
     setStr({ ...str, [e.target.name]: e.target.value })
   }
 
-
+  //Upload picture to stroge & context
   const save = () => {
     recipeList(all)
     uploadFile(imageUpload, str.name)
@@ -138,3 +137,5 @@ export default function MaxWidthDialog() {
     </React.Fragment>
   );
 }
+
+export default MaxWidthDialog

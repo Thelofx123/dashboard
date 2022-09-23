@@ -5,7 +5,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import {ListItemText,ListItemButton,ListItem,Divider,Typography,List,Toolbar,CssBaseline,Drawer,Box,Avatar, Card, CardMedia ,styled, useTheme} from '@mui/material';
+import { ListItemText, ListItemButton, ListItem, Divider, Typography, List, Toolbar, CssBaseline, Drawer, Box, Avatar, Card, CardMedia, styled, useTheme } from '@mui/material';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import Logo from '../img/logo.png'
@@ -13,7 +13,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import { useFireCon } from '../context/fireCon';
 import { logOutFromFirebase } from '../firebase.js'
-import { useNavigate,useLocation ,Link} from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 
 
 const drawerWidth = 240;
@@ -50,21 +50,16 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 
+export const PersistentDrawerLeft = ({ open, handleDrawerOpen, handleDrawerClose }) => {
 
-
-export  const PersistentDrawerLeft = ({open,handleDrawerOpen,handleDrawerClose})  =>{
   const theme = useTheme();
-
   const { docData, setDocData } = useFireCon()
   const menu = ['Захиалга', 'График', 'Тохиргоо', 'Меню']
   const direction = ['order', 'graph', 'test1', 'soon']
   let location = useLocation()
   let index = direction.indexOf(location.pathname.slice(1))
 
-
-
   const navigate = useNavigate();
-
 
   const logOut = () => {
     logOutFromFirebase().then(() => { navigate('/signin') })
@@ -85,14 +80,13 @@ export  const PersistentDrawerLeft = ({open,handleDrawerOpen,handleDrawerClose})
                 aria-label="open drawer"
                 onClick={handleDrawerOpen}
                 edge="start"
-                // sx={{ mr: 2, ...(open && { display: "none" }) }}
                 sx={{ mr: 2, ...(open && { display: 'none', color: '#000' }), color: '#000' }}
               >
                 <MenuIcon />
               </IconButton>
-              <Typography variant="h6" noWrap component="div" sx={{ color: '#000' }}>
-                {menu[index] || 'Foody'}
-              </Typography>
+                <Typography variant="h6" noWrap component="div" sx={{ color: '#000' }}>
+                  {menu[index] || 'Foody'}
+                </Typography>
               <Box display='flex' sx={{ textIndent: '30px', alignItems: 'center' }}>
                 <SearchIcon sx={{ color: '#000' }}></SearchIcon>
                 <NotificationsActiveIcon sx={{ color: '#000', marginLeft: '30px' }}></NotificationsActiveIcon>
@@ -142,7 +136,7 @@ export  const PersistentDrawerLeft = ({open,handleDrawerOpen,handleDrawerClose})
                       {index % 2 === 0 ? <InboxIcon sx={{ color: '#ffffff', marginLeft: '5px', textDecoration: 'none' }} /> : <MailIcon sx={{ color: '#ffffff', marginLeft: '5px' }} />}
                     </ListItemIcon>
                     <Link to={direction[index]} style={{ textDecoration: 'none' }}>
-                      <ListItemText primary={text} sx={{ color: '#fff'}} />
+                      <ListItemText primary={text} sx={{ color: '#fff' }} />
                     </Link>
                   </ListItemButton>
                 </ListItem>

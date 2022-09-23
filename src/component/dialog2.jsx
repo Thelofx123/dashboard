@@ -6,7 +6,7 @@ import { Input,Typography ,Dialog,DialogTitle,ListItemText,ListItem,List,Button}
 import { useDtCon } from '../context/dataContext';
 
 
-function SimpleDialog(props) {
+const SimpleDialog = (props) => {
   const { onClose, selectedValue, open } = props;
 
   const handleClose = () => {
@@ -37,7 +37,7 @@ SimpleDialog.propTypes = {
   selectedValue: PropTypes.string.isRequired,
 };
 
-export  const IngDialog = () => {
+export const IngDialog = () => {
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState([]);
   const {dt, usedt} =useDtCon()

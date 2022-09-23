@@ -1,12 +1,11 @@
-import { useState } from "react"
 import Accord from "./accordation"
 
-const AccordWrap = ( {data, type, orderList, refresh }) => {
-  console.log(data)
+const AccordWrap = ( {data, type, orderList }) => {
+
   return (
-   
-      <Accord data={data} type={type} orderList={orderList} refresh={refresh} sx={{marginTop:'10px'}} ></Accord> 
- 
+
+     <Accord data={data} type={type} orderList={orderList}  sx={{marginTop:'10px'}} /> 
+
   )
 }
 

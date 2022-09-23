@@ -4,22 +4,24 @@ import { Box } from "@mui/system";
 import {ListItemText,ListItem,List,MenuItem,Menu,AccordionDetails,Accordion, AccordionSummary, Button, Divider, Typography} from '@mui/material';
 import { useState } from "react";
 
-const Accord = ({ data, type, refresh, orderList }) => {
+const Accord = ({ data, refresh, orderList }) => {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const open = Boolean(anchorEl);
+
+  //Menu item select
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-
+    //menu item index 
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
     setAnchorEl(null);
   };
-
+  //Close menu when click outside of dialog
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -34,8 +36,6 @@ const Accord = ({ data, type, refresh, orderList }) => {
   const onclick = () => {
     orderList(options[selectedIndex], data.code).then(() => refresh())
   }
-
-
 
   return (
 

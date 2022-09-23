@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import {Typography,Dialog,DialogTitle,ListItemText,ListItem,List,Button} from '@mui/material';
 import { Box } from '@mui/system';
 import { useStrCon } from '../context/strCon';
+
+
 const emails = ['Шөлтэй', 'Шөлгүй'];
 
-function SimpleDialog(props) {
+const SimpleDialog = (props) => {
   const { onClose, selectedValue, open } = props;
   const { str, setStr } = useStrCon()
   const handleClose = () => {
@@ -39,7 +41,7 @@ SimpleDialog.propTypes = {
   selectedValue: PropTypes.string.isRequired,
 };
 
-export default function SimpleDialogDemo() {
+ const SimpleDialogDemo = () => {
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState(emails[1]);
 
@@ -74,3 +76,5 @@ export default function SimpleDialogDemo() {
     </div>
   );
 }
+
+export default SimpleDialogDemo

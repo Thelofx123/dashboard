@@ -49,13 +49,12 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
   const [imageUpload, setImageUpload] = React.useState(null);
 
-
+    //Menu Toggler
   const handleClickOpen = () => {
     setOpen(true);
     setAll([])
-
   };
-
+    //Dialog menu button toggler
   const handleClose = () => {
     setOpen(false);
     setAll([])

@@ -1,5 +1,5 @@
-import React, { StrictMode } from 'react';
-import ReactDOM, { createRoot } from 'react-dom/client';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -18,7 +18,7 @@ root.render(
       <StoreProvider>
           <BrowserRouter>
              <FireProvider>
-            <App />
+                 <App />
               </FireProvider>
           </BrowserRouter>
       </StoreProvider>
